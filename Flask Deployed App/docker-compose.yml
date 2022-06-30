@@ -1,0 +1,20 @@
+
+version: "3.9"
+  
+networks:
+  web:
+    external: true
+
+services:
+  app:
+    build:
+      context: .
+    container_name: pdd
+    restart: unless-stopped
+    labels:
+      - traefik.http.routers.pdd.rule=Host(`pdd.platfom.live`)
+      - traefik.http.routers.pdd.tls=true
+      - traefik.http.routers.pdd.tls.certresolver=lets-encrypt
+      - traefik.port=5000
+    networks:
+      - web
